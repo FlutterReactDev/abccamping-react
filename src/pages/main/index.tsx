@@ -1,15 +1,28 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { usePrompt } from "@/hooks/use-prompt";
 import { themes } from "@/lib/themes";
-import { GitFork } from "lucide-react";
-import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
+import { FilePenLine, GitFork, Trash2 } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
 const data2 = [
     {
         average: 400,
@@ -42,11 +55,17 @@ const data2 = [
 ];
 export const MainPage = () => {
     const { theme: mode } = useTheme();
-
+    const prompt = usePrompt();
     const theme = themes.find((theme) => theme.name === "blue");
+
+    const onDelete = async () => {
+        const yes = await prompt({
+            title: "Вы уверены что хотите удалить",
+        });
+    };
     return (
         <div className="grid grid-cols-1  gap-3">
-            <Card >
+            <Card>
                 <CardHeader className="flex flex-row  justify-between space-y-0 pb-2">
                     <div>
                         <CardTitle className="text-lg font-medium">
@@ -161,6 +180,38 @@ export const MainPage = () => {
                         </ResponsiveContainer>
                     </div>
                 </CardContent>
+                <CardFooter className="gap-2">
+                    <Button variant={"destructive"} onClick={onDelete}>
+                        <Trash2 />
+                        Удалить
+                    </Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant={"outline"}>
+                                <FilePenLine />
+                                Редактировать
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Редактировать</DialogTitle>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-1 items-center gap-4">
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input id="name" value="Pedro Duarte" />
+                                </div>
+                                <div className="grid grid-cols-1 items-center gap-4">
+                                    <Label htmlFor="username">Username</Label>
+                                    <Input id="username" value="@peduarte" />
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit">Сохранить</Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </CardFooter>
             </Card>
         </div>
     );
