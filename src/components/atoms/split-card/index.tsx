@@ -72,7 +72,12 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
         console.log(yes);
     };
     return (
-        <Link>
+        <Link
+            to={"/splits/$id"}
+            params={{
+                id: `${id}`,
+            }}
+        >
             <Card className="cursor-pointer">
                 <CardHeader className="flex flex-row  justify-between space-y-0 pb-2">
                     <div>
