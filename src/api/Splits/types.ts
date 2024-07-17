@@ -17,3 +17,7 @@ export interface SplitDetail {
     user_total: number;
     user_uniq: number;
 }
+
+export interface CreateSplitRequest {
+    name: string;
+}

@@ -1,5 +1,5 @@
 import { baseApi } from "../Base";
-import { Split, SplitDetail } from "./types";
+import { CreateSplitRequest, Split, SplitDetail } from "./types";
 
 const splitsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -16,7 +16,18 @@ const splitsApi = baseApi.injectEndpoints({
                 method: "GET",
             }),
         }),
+        createSplit: build.mutation<void, CreateSplitRequest>({
+            query: (data) => ({
+                url: "/admin/splits",
+                method: "POST",
+                data,
+            }),
+        }),
     }),
 });
 
-export const { useGetSplitDetailQuery, useGetSplitListQuery } = splitsApi;
+export const {
+    useGetSplitDetailQuery,
+    useGetSplitListQuery,
+    useCreateSplitMutation,
+} = splitsApi;
