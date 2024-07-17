@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const SplitsPage = () => {
     const { data, isSuccess } = useGetSplitListQuery();
+    console.log(window.location);
 
     return (
         <div className="flex flex-col gap-4">

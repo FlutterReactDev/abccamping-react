@@ -74,7 +74,7 @@ const DeleteDialog: FC<
             <Separator />
           </>
         )}
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant={"outline"} onClick={onCancel}>
             {cancelText}
           </Button>

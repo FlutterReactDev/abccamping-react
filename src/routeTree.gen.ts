@@ -13,8 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
-import { Route as LayoutSplitsIndexImport } from './routes/_layout/splits/index'
-import { Route as LayoutSplitsIdImport } from './routes/_layout/splits/$id'
+import { Route as LayoutAdminIndexImport } from './routes/_layout/admin/index'
+import { Route as LayoutAdminIdImport } from './routes/_layout/admin/$id'
 
 // Create/Update Routes
 
@@ -28,13 +28,13 @@ const LayoutIndexRoute = LayoutIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutSplitsIndexRoute = LayoutSplitsIndexImport.update({
-  path: '/splits/',
+const LayoutAdminIndexRoute = LayoutAdminIndexImport.update({
+  path: '/admin/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutSplitsIdRoute = LayoutSplitsIdImport.update({
-  path: '/splits/$id',
+const LayoutAdminIdRoute = LayoutAdminIdImport.update({
+  path: '/admin/$id',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -56,18 +56,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/splits/$id': {
-      id: '/_layout/splits/$id'
-      path: '/splits/$id'
-      fullPath: '/splits/$id'
-      preLoaderRoute: typeof LayoutSplitsIdImport
+    '/_layout/admin/$id': {
+      id: '/_layout/admin/$id'
+      path: '/admin/$id'
+      fullPath: '/admin/$id'
+      preLoaderRoute: typeof LayoutAdminIdImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/splits/': {
-      id: '/_layout/splits/'
-      path: '/splits'
-      fullPath: '/splits'
-      preLoaderRoute: typeof LayoutSplitsIndexImport
+    '/_layout/admin/': {
+      id: '/_layout/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof LayoutAdminIndexImport
       parentRoute: typeof LayoutImport
     }
   }
@@ -78,8 +78,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutIndexRoute,
-    LayoutSplitsIdRoute,
-    LayoutSplitsIndexRoute,
+    LayoutAdminIdRoute,
+    LayoutAdminIndexRoute,
   }),
 })
 
@@ -98,20 +98,20 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
-        "/_layout/splits/$id",
-        "/_layout/splits/"
+        "/_layout/admin/$id",
+        "/_layout/admin/"
       ]
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
       "parent": "/_layout"
     },
-    "/_layout/splits/$id": {
-      "filePath": "_layout/splits/$id.tsx",
+    "/_layout/admin/$id": {
+      "filePath": "_layout/admin/$id.tsx",
       "parent": "/_layout"
     },
-    "/_layout/splits/": {
-      "filePath": "_layout/splits/index.tsx",
+    "/_layout/admin/": {
+      "filePath": "_layout/admin/index.tsx",
       "parent": "/_layout"
     }
   }

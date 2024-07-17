@@ -72,13 +72,13 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
         console.log(yes);
     };
     return (
-        <Link
-            to={"/splits/$id"}
-            params={{
-                id: `${id}`,
-            }}
-        >
-            <Card className="cursor-pointer">
+        <Card className="cursor-pointer">
+            <Link
+                to={"/admin/$id"}
+                params={{
+                    id: `${id}`,
+                }}
+            >
                 <CardHeader className="flex flex-row  justify-between space-y-0 pb-2">
                     <div>
                         <CardTitle className="text-lg font-medium">
@@ -193,39 +193,39 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
                         </ResponsiveContainer>
                     </div>
                 </CardContent>
-                <CardFooter className="gap-2">
-                    <Button variant={"destructive"} onClick={onDelete}>
-                        <Trash2 />
-                        Удалить
-                    </Button>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant={"outline"}>
-                                <FilePenLine />
-                                Редактировать
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="w-full ">
-                            <DialogHeader>
-                                <DialogTitle>Редактировать</DialogTitle>
-                            </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-1 items-center gap-4">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input id="name" value="Pedro Duarte" />
-                                </div>
-                                <div className="grid grid-cols-1 items-center gap-4">
-                                    <Label htmlFor="username">Username</Label>
-                                    <Input id="username" value="@peduarte" />
-                                </div>
+            </Link>
+            <CardFooter className="gap-2">
+                <Button variant={"destructive"} onClick={onDelete}>
+                    <Trash2 />
+                    Удалить
+                </Button>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant={"outline"}>
+                            <FilePenLine />
+                            Редактировать
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="w-full ">
+                        <DialogHeader>
+                            <DialogTitle>Редактировать</DialogTitle>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-1 items-center gap-4">
+                                <Label htmlFor="name">Name</Label>
+                                <Input id="name" value="Pedro Duarte" />
                             </div>
-                            <DialogFooter>
-                                <Button type="submit">Сохранить</Button>
-                            </DialogFooter>
-                        </DialogContent>
-                    </Dialog>
-                </CardFooter>
-            </Card>
-        </Link>
+                            <div className="grid grid-cols-1 items-center gap-4">
+                                <Label htmlFor="username">Username</Label>
+                                <Input id="username" value="@peduarte" />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="submit">Сохранить</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            </CardFooter>
+        </Card>
     );
 };

@@ -13,14 +13,15 @@ import { ChevronLeft } from "lucide-react";
 
 export const SplitPage = () => {
     const { id } = useParams({
-        from: "/_layout/splits/$id",
+        from: "/_layout/admin/$id",
     });
+
     const { data, isSuccess } = useGetSplitDetailQuery(parseInt(id));
     if (isSuccess) {
         return (
             <div className="mx-auto grid max-w-7xl  gap-4">
                 <div className="flex items-center gap-4">
-                    <Link to="/splits">
+                    <Link to="/admin">
                         <Button
                             variant="outline"
                             size="icon"
