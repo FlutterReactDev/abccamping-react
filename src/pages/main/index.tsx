@@ -1,9 +1,5 @@
-import { SplitCard } from "@/components/atoms/split-card";
+import { Navigate } from "@tanstack/react-router";
 
 export const MainPage = () => {
-    return (
-        <div className="grid grid-cols-1  gap-3">
-            <SplitCard />
-        </div>
-    );
+    return <Navigate to="/splits" />;
 };

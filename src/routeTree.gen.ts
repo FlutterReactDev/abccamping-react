@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as LayoutSplitsIndexImport } from './routes/_layout/splits/index'
+import { Route as LayoutSplitsIdImport } from './routes/_layout/splits/$id'
 
 // Create/Update Routes
 
@@ -23,6 +25,16 @@ const LayoutRoute = LayoutImport.update({
 
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSplitsIndexRoute = LayoutSplitsIndexImport.update({
+  path: '/splits/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSplitsIdRoute = LayoutSplitsIdImport.update({
+  path: '/splits/$id',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -44,13 +56,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/splits/$id': {
+      id: '/_layout/splits/$id'
+      path: '/splits/$id'
+      fullPath: '/splits/$id'
+      preLoaderRoute: typeof LayoutSplitsIdImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/splits/': {
+      id: '/_layout/splits/'
+      path: '/splits'
+      fullPath: '/splits'
+      preLoaderRoute: typeof LayoutSplitsIndexImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  LayoutRoute: LayoutRoute.addChildren({ LayoutIndexRoute }),
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutIndexRoute,
+    LayoutSplitsIdRoute,
+    LayoutSplitsIndexRoute,
+  }),
 })
 
 /* prettier-ignore-end */
@@ -67,11 +97,21 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
-        "/_layout/"
+        "/_layout/",
+        "/_layout/splits/$id",
+        "/_layout/splits/"
       ]
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/splits/$id": {
+      "filePath": "_layout/splits/$id.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/splits/": {
+      "filePath": "_layout/splits/index.tsx",
       "parent": "/_layout"
     }
   }
