@@ -8,6 +8,7 @@ const splitsApi = baseApi.injectEndpoints({
                 url: "/splits",
                 method: "GET",
             }),
+            providesTags: ["splits"],
         }),
 
         getSplitDetail: build.query<SplitDetail[], number>({
@@ -15,6 +16,7 @@ const splitsApi = baseApi.injectEndpoints({
                 url: `/splits/${id}`,
                 method: "GET",
             }),
+            providesTags: ["splits"],
         }),
         createSplit: build.mutation<void, CreateSplitRequest>({
             query: (data) => ({
@@ -22,6 +24,7 @@ const splitsApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
+            invalidatesTags: ["splits"],
         }),
     }),
 });

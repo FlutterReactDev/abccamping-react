@@ -8,5 +8,5 @@ export const baseApi = createApi({
     }),
     reducerPath: "baseApi",
     endpoints: () => ({}),
-    tagTypes: ["auth", "user"],
+    tagTypes: ["splits"],
 });
