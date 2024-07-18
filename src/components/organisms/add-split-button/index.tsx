@@ -22,8 +22,8 @@ export const AddSplitButton = () => {
         try {
             await createSplit(data).unwrap();
             setOpen(false);
-        } catch (error) {
-            toast.error("Произошла непердвиденная ошибка");
+        } catch (error: any) {
+            toast.error(`Ошибка: ${error.error}`);
         }
     };
     return (

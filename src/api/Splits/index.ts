@@ -5,22 +5,22 @@ const splitsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getSplitList: build.query<Split[], void>({
             query: () => ({
-                url: "/admin/splits",
+                url: "/splits",
                 method: "GET",
             }),
         }),
 
-        getSplitDetail: build.query<SplitDetail, number>({
+        getSplitDetail: build.query<SplitDetail[], number>({
             query: (id) => ({
-                url: `/admin/splits/${id}`,
+                url: `/splits/${id}`,
                 method: "GET",
             }),
         }),
         createSplit: build.mutation<void, CreateSplitRequest>({
             query: (data) => ({
-                url: "/admin/splits",
+                url: "/splits",
                 method: "POST",
-                data,
+                body: data,
             }),
         }),
     }),
