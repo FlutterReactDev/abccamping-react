@@ -18,11 +18,20 @@ const splitsApi = baseApi.injectEndpoints({
             }),
             providesTags: ["splits"],
         }),
+
         createSplit: build.mutation<void, CreateSplitRequest>({
             query: (data) => ({
                 url: "/splits",
                 method: "POST",
                 body: data,
+            }),
+            invalidatesTags: ["splits"],
+        }),
+
+        deleteSplit: build.mutation<void, number>({
+            query: (splitId) => ({
+                url: `/splits/${splitId}`,
+                method: "DELETE",
             }),
             invalidatesTags: ["splits"],
         }),
@@ -33,4 +42,5 @@ export const {
     useGetSplitDetailQuery,
     useGetSplitListQuery,
     useCreateSplitMutation,
+    useDeleteSplitMutation,
 } = splitsApi;

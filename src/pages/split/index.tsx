@@ -1,7 +1,14 @@
 import { useGetSplitDetailQuery } from "@/api/Splits";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { getImageUrl } from "@/lib/utils";
 import { Link, useParams } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 
@@ -46,7 +53,7 @@ export const SplitPage = () => {
                                         <div className="flex gap-2">
                                             <div>
                                                 <img
-                                                    src={`${window.location.origin}${qr_url}`}
+                                                    src={getImageUrl(qr_url)}
                                                 />
                                             </div>
                                             <div className="grid grid-cols-1 gap-2 w-full">
@@ -82,17 +89,23 @@ export const SplitPage = () => {
                                                         {user_uniq}
                                                     </Badge>
                                                 </div>
-                                                <Button variant={"outline"}>
-                                                    <a
-                                                        href={redirect}
-                                                        target="_blank"
-                                                    >
-                                                        {redirect}
-                                                    </a>
-                                                </Button>
                                             </div>
                                         </div>
                                     </CardContent>
+                                    <CardFooter>
+                                        <a
+                                            href={redirect}
+                                            target="_blank"
+                                            className="w-full"
+                                        >
+                                            <Button
+                                                variant={"outline"}
+                                                className="w-full"
+                                            >
+                                                {redirect}
+                                            </Button>
+                                        </a>
+                                    </CardFooter>
                                 </Card>
                             );
                         }

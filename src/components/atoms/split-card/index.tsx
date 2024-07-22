@@ -1,3 +1,4 @@
+import { useDeleteSplitMutation } from "@/api/Splits";
 import { Split } from "@/api/Splits/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { LoadingButton } from "@/components/ui/loading-button";
 import { usePrompt } from "@/hooks/use-prompt";
 import { themes } from "@/lib/themes";
 import { Link } from "@tanstack/react-router";
@@ -26,6 +28,7 @@ import { FilePenLine, GitFork, Trash2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { FC } from "react";
 import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
+import { toast } from "sonner";
 const data2 = [
     {
         average: 400,
@@ -63,13 +66,20 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
     const { theme: mode } = useTheme();
     const prompt = usePrompt();
     const theme = themes.find((theme) => theme.name === "blue");
+    const [deleteSplit, { isLoading }] = useDeleteSplitMutation();
 
     const onDelete = async () => {
         const yes = await prompt({
-            title: "Вы уверены что хотите удалить",
+            title: "Вы уверены что хотите удалить? ",
         });
 
-        console.log(yes);
+        if (yes) {
+            try {
+                await deleteSplit(id).unwrap();
+            } catch (error) {
+                toast.error("ERROR");
+            }
+        }
     };
     return (
         <Card className="cursor-pointer">
@@ -195,10 +205,14 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
                 </CardContent>
             </Link>
             <CardFooter className="gap-2">
-                <Button variant={"destructive"} onClick={onDelete}>
+                <LoadingButton
+                    variant={"destructive"}
+                    onClick={onDelete}
+                    loading={isLoading}
+                >
                     <Trash2 />
                     Удалить
-                </Button>
+                </LoadingButton>
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button variant={"outline"}>

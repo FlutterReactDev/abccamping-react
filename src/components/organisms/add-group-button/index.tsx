@@ -1,6 +1,6 @@
-import { useCreateSplitMutation } from "@/api/Splits";
-import { AddSplitForm } from "@/components/forms/add-split-form";
-import { AddSplitType } from "@/components/forms/add-split-form/schema";
+import { useCreateGroupMutation } from "@/api/Groups";
+import { AddGroupForm } from "@/components/forms/add-group-form";
+import { AddGroupType } from "@/components/forms/add-group-form/schema";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -10,18 +10,17 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { isErrorWithMessage, isFetchBaseQueryError } from "@/lib/utils";
-
-import { PlusCircle } from "lucide-react";
+import { Users } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export const AddSplitButton = () => {
-    const [createSplit, { isLoading }] = useCreateSplitMutation();
+export const AddGroupButton = () => {
+    const [createGroup, { isLoading }] = useCreateGroupMutation();
     const [open, setOpen] = useState(false);
 
-    const onCreate = async (data: AddSplitType) => {
+    const onCreate = async (data: AddGroupType) => {
         try {
-            await createSplit(data).unwrap();
+            await createGroup(data).unwrap();
             setOpen(false);
         } catch (err) {
             if (isFetchBaseQueryError(err)) {
@@ -37,15 +36,15 @@ export const AddSplitButton = () => {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
                 <Button>
-                    <PlusCircle />
-                    Добавить
+                    <Users />
+                    Добавить группу
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Добавить новый сплит</DialogTitle>
+                    <DialogTitle>Добавить группу</DialogTitle>
                 </DialogHeader>
-                <AddSplitForm onCreate={onCreate} isLoading={isLoading} />
+                <AddGroupForm onCreate={onCreate} isLoading={isLoading} />
             </DialogContent>
         </Dialog>
     );
