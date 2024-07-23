@@ -1,6 +1,7 @@
-import { useCreateGroupMutation } from "@/api/Groups";
-import { AddGroupForm } from "@/components/forms/add-group-form";
-import { addGroupSchema } from "@/components/forms/add-group-form/schema";
+import { useEditSplitMutation, useGetSplitListQuery } from "@/api/Splits";
+import { Split } from "@/api/Splits/types";
+import { addSplitSchema } from "@/components/forms/add-split-form/schema";
+import { EditSplitForm } from "@/components/forms/edit-split-form";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -15,35 +16,43 @@ import { LoadingButton } from "@/components/ui/loading-button";
 import { nestedForm } from "@/lib/nested-form";
 import { isErrorWithMessage, isFetchBaseQueryError } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Users } from "lucide-react";
+import { FilePenLine } from "lucide-react";
+
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { InferType, object } from "yup";
-interface AddGroupButtonProps {
-    split_id: number;
-}
-
 const schema = object({
-    group: addGroupSchema,
+    split: addSplitSchema,
 });
-
-export const AddGroupButton: FC<AddGroupButtonProps> = (props) => {
-    const { split_id } = props;
-    const [createGroup, { isLoading }] = useCreateGroupMutation();
+interface EditSplitButtonProps {
+    split: Split;
+}
+export const EditSplitButton: FC<EditSplitButtonProps> = (props) => {
+    const {
+        split: { id, name },
+    } = props;
+    const [editSplit, { isLoading }] = useEditSplitMutation();
+    const { data } = useGetSplitListQuery();
     const [open, setOpen] = useState(false);
-
     const form = useForm({
         resolver: yupResolver(schema),
+        defaultValues: {
+            split: {
+                name,
+            },
+        },
     });
-
+    const {
+        formState: { isDirty },
+    } = form;
     const { handleSubmit } = form;
 
-    const onCreate = async ({ group }: InferType<typeof schema>) => {
+    const onCreate = async ({ split }: InferType<typeof schema>) => {
         try {
-            await createGroup({
-                split_id,
-                ...group,
+            await editSplit({
+                data: split,
+                splitId: id,
             }).unwrap();
             setOpen(false);
         } catch (err) {
@@ -56,26 +65,33 @@ export const AddGroupButton: FC<AddGroupButtonProps> = (props) => {
             }
         }
     };
-
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
-                <Button>
-                    <Users />
-                    Добавить группу
+                <Button variant={"outline"}>
+                    <FilePenLine />
+                    Редактировать
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Добавить группу</DialogTitle>
+                    <DialogTitle>
+                        Редактировать{" "}
+                        {data?.filter((split) => split.id == id)[0].name}
+                    </DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onCreate)}>
                     <Form {...form}>
-                        <AddGroupForm form={nestedForm(form, "group")} />
+                        <EditSplitForm form={nestedForm(form, "split")} />
                     </Form>
+
                     <DialogFooter>
-                        <LoadingButton loading={isLoading} type="submit">
-                            Добавить
+                        <LoadingButton
+                            loading={isLoading}
+                            type="submit"
+                            disabled={!isDirty}
+                        >
+                            Изменить
                         </LoadingButton>
                     </DialogFooter>
                 </form>

@@ -1,5 +1,5 @@
 import { baseApi } from "../Base";
-import { CreateGroupRequest } from "./types";
+import { CreateGroupRequest, EditGroupRequest } from "./types";
 
 const groupsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -18,7 +18,26 @@ const groupsApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["splits"],
         }),
+
+        editGroup: build.mutation<
+            void,
+            {
+                groupId: number;
+                data: EditGroupRequest;
+            }
+        >({
+            query: ({ groupId, data }) => ({
+                url: `/groups/${groupId}`,
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ["splits"],
+        }),
     }),
 });
 
-export const { useCreateGroupMutation, useDeteleGroupMutation } = groupsApi;
+export const {
+    useCreateGroupMutation,
+    useDeteleGroupMutation,
+    useEditGroupMutation,
+} = groupsApi;

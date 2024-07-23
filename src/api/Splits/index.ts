@@ -1,5 +1,10 @@
 import { baseApi } from "../Base";
-import { CreateSplitRequest, Split, SplitDetail } from "./types";
+import {
+    CreateSplitRequest,
+    EditSplitRequest,
+    Split,
+    SplitDetail,
+} from "./types";
 
 const splitsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -45,6 +50,21 @@ const splitsApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["splits"],
         }),
+
+        editSplit: build.mutation<
+            void,
+            {
+                splitId: number;
+                data: EditSplitRequest;
+            }
+        >({
+            query: ({ splitId, data }) => ({
+                url: `/splits/${splitId}`,
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ["splits"],
+        }),
     }),
 });
 
@@ -53,4 +73,5 @@ export const {
     useGetSplitListQuery,
     useCreateSplitMutation,
     useDeleteSplitMutation,
+    useEditSplitMutation,
 } = splitsApi;

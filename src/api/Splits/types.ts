@@ -21,3 +21,7 @@ export interface SplitDetail {
 export interface CreateSplitRequest {
     name: string;
 }
+
+export interface EditSplitRequest {
+    name?: string;
+}

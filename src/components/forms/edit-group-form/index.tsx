@@ -9,11 +9,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { NestedForm } from "@/lib/nested-form";
 import { FC } from "react";
-import { AddGroupType } from "./schema";
-interface AddGroupFormProps {
-    form: NestedForm<AddGroupType>;
+import { EditGroupType } from "./schema";
+interface EditGroupFormProps {
+    form: NestedForm<EditGroupType>;
 }
-export const AddGroupForm: FC<AddGroupFormProps> = ({ form }) => {
+export const EditGroupForm: FC<EditGroupFormProps> = ({ form }) => {
     const { control, path } = form;
 
     return (

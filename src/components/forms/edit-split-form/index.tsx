@@ -1,7 +1,6 @@
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -10,11 +9,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { NestedForm } from "@/lib/nested-form";
 import { FC } from "react";
-import { AddSplitType } from "./schema";
+import { EditSplitType } from "./schema";
 interface AddSplitFormProps {
-    form: NestedForm<AddSplitType>;
+    form: NestedForm<EditSplitType>;
 }
-export const AddSplitForm: FC<AddSplitFormProps> = (props) => {
+export const EditSplitForm: FC<AddSplitFormProps> = (props) => {
     const { form } = props;
     const { control, path } = form;
     return (
@@ -30,10 +29,6 @@ export const AddSplitForm: FC<AddSplitFormProps> = (props) => {
                                 <Input {...field} />
                             </FormControl>
                             <FormMessage />
-                            <FormDescription>
-                                Название Сплит-теста, например Листовка к
-                                экоакции 07.07.24 или Стикер Артём 08.08.2024
-                            </FormDescription>
                         </FormItem>
                     )}
                 />

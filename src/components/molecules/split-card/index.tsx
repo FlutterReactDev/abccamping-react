@@ -1,8 +1,8 @@
 import { useDeleteSplitMutation } from "@/api/Splits";
 import { Split } from "@/api/Splits/types";
 import { AddGroupButton } from "@/components/atoms/add-group-button";
+import { EditSplitButton } from "@/components/atoms/edit-split-button";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -11,21 +11,11 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { usePrompt } from "@/hooks/use-prompt";
 import { themes } from "@/lib/themes";
 import { Link } from "@tanstack/react-router";
-import { FilePenLine, GitFork, Trash2 } from "lucide-react";
+import { GitFork, Trash2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { FC } from "react";
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
@@ -214,32 +204,7 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
                     <Trash2 />
                     Удалить
                 </LoadingButton>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant={"outline"}>
-                            <FilePenLine />
-                            Редактировать
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="w-full ">
-                        <DialogHeader>
-                            <DialogTitle>Редактировать</DialogTitle>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-1 items-center gap-4">
-                                <Label htmlFor="name">Name</Label>
-                                <Input id="name" value="Pedro Duarte" />
-                            </div>
-                            <div className="grid grid-cols-1 items-center gap-4">
-                                <Label htmlFor="username">Username</Label>
-                                <Input id="username" value="@peduarte" />
-                            </div>
-                        </div>
-                        <DialogFooter>
-                            <Button type="submit">Сохранить</Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
+                <EditSplitButton split={props} />
                 <AddGroupButton split_id={id} />
             </CardFooter>
         </Card>
