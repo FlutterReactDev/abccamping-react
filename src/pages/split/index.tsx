@@ -63,22 +63,34 @@ export const SplitPage = () => {
                             admin_uniq,
                             id,
                             size,
-                            split_id,
                             user_total,
                             user_uniq,
+                            redirect_url,
                         } = group;
                         return (
                             <Card key={id}>
                                 <CardHeader className="flex-row items-baseline gap-2">
                                     <CardTitle className="text-xl">
-                                        #{split_id} {name}
+                                        #{id} {name}
                                     </CardTitle>
                                     <Badge>Всего: {size}</Badge>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="flex gap-2">
-                                        <div>
+                                        <div className="flex flex-col">
                                             <img src={getImageUrl(qr_url)} />
+                                            <a
+                                                href={redirect_url}
+                                                target="_blank"
+                                                className="w-full"
+                                            >
+                                                <Button
+                                                    variant={"outline"}
+                                                    className="w-full mt-4"
+                                                >
+                                                    {redirect_url}
+                                                </Button>
+                                            </a>
                                         </div>
                                         <div className="grid grid-cols-1 gap-2 w-full">
                                             <div className="flex justify-between">

@@ -16,6 +16,7 @@ export interface SplitDetail {
     admin_uniq: number;
     user_total: number;
     user_uniq: number;
+    redirect_url: string;
 }
 
 export interface CreateSplitRequest {
