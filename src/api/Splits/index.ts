@@ -8,7 +8,17 @@ const splitsApi = baseApi.injectEndpoints({
                 url: "/splits",
                 method: "GET",
             }),
-            providesTags: ["splits"],
+
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({
+                              type: "splits" as const,
+                              id,
+                          })),
+                          "splits",
+                      ]
+                    : ["splits"],
         }),
 
         getSplitDetail: build.query<SplitDetail[], number>({

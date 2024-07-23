@@ -11,16 +11,22 @@ import {
 } from "@/components/ui/dialog";
 import { isErrorWithMessage, isFetchBaseQueryError } from "@/lib/utils";
 import { Users } from "lucide-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
-
-export const AddGroupButton = () => {
+interface AddGroupButtonProps {
+    split_id: number;
+}
+export const AddGroupButton: FC<AddGroupButtonProps> = (props) => {
+    const { split_id } = props;
     const [createGroup, { isLoading }] = useCreateGroupMutation();
     const [open, setOpen] = useState(false);
 
     const onCreate = async (data: AddGroupType) => {
         try {
-            await createGroup(data).unwrap();
+            await createGroup({
+                split_id,
+                ...data,
+            }).unwrap();
             setOpen(false);
         } catch (err) {
             if (isFetchBaseQueryError(err)) {

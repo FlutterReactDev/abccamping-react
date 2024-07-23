@@ -1,4 +1,3 @@
-import { SplitSelect } from "@/components/molecules/split-select";
 import {
     Form,
     FormControl,
@@ -35,22 +34,6 @@ export const AddGroupForm: FC<AddGroupFormProps> = ({
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 gap-3">
                 <Form {...form}>
-                    <FormField
-                        control={control}
-                        name={"split_id"}
-                        render={({ field }) => (
-                            <FormItem className="w-full">
-                                <FormLabel>Выберите Сплит</FormLabel>
-                                <FormControl>
-                                    <SplitSelect
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
                     <FormField
                         control={control}
                         name={"name"}

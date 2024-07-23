@@ -9,12 +9,14 @@ const groupsApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
+            invalidatesTags: ["splits"],
         }),
         deteleGroup: build.mutation<void, number>({
             query: (groupId) => ({
                 url: `/groups/${groupId}`,
                 method: "DELETE",
             }),
+            invalidatesTags: ["splits"],
         }),
     }),
 });

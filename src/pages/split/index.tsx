@@ -1,4 +1,5 @@
 import { useGetSplitDetailQuery } from "@/api/Splits";
+import { AddGroupButton } from "@/components/atoms/add-group-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,14 +19,20 @@ export const SplitPage = () => {
     });
 
     const { data, isSuccess } = useGetSplitDetailQuery(parseInt(id));
+
     if (isSuccess) {
         return (
             <div className="flex flex-col gap-4">
-                <Link to="/admin">
-                    <Button size={"icon"} variant={"outline"}>
-                        <ChevronLeft />
-                    </Button>
-                </Link>
+                <div className="flex justify-between">
+                    <Link to="/admin">
+                        <Button size={"icon"} variant={"outline"}>
+                            <ChevronLeft />
+                        </Button>
+                    </Link>
+                    <div className="flex gap-2">
+                        <AddGroupButton split_id={parseInt(id)} />
+                    </div>
+                </div>
 
                 <div className="grid grid-cols-1 gap-4">
                     {data.map(

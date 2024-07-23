@@ -1,5 +1,6 @@
 import { useDeleteSplitMutation } from "@/api/Splits";
 import { Split } from "@/api/Splits/types";
+import { AddGroupButton } from "@/components/atoms/add-group-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +28,7 @@ import { Link } from "@tanstack/react-router";
 import { FilePenLine, GitFork, Trash2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { FC } from "react";
-import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
+import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
 import { toast } from "sonner";
 const data2 = [
     {
@@ -239,6 +240,7 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
+                <AddGroupButton split_id={id} />
             </CardFooter>
         </Card>
     );

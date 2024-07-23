@@ -1,7 +1,6 @@
 import { useGetSplitListQuery } from "@/api/Splits";
-import { SplitCard } from "@/components/atoms/split-card";
-import { AddGroupButton } from "@/components/organisms/add-group-button";
-import { AddSplitButton } from "@/components/organisms/add-split-button";
+import { AddSplitButton } from "@/components/atoms/add-split-button";
+import { SplitCard } from "@/components/molecules/split-card";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const SplitsPage = () => {
@@ -16,7 +15,6 @@ export const SplitsPage = () => {
                     </CardTitle>
                     <div className="flex gap-4">
                         <AddSplitButton />
-                        <AddGroupButton />
                     </div>
                 </CardHeader>
             </Card>
