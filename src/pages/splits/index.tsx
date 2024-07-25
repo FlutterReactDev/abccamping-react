@@ -5,8 +5,9 @@ import { SplitCard } from "@/components/molecules/split-card";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { FC, useRef } from "react";
+
 export const SplitsPage = () => {
-    const { data, isSuccess } = useGetSplitListQuery();
+    const { data, isSuccess, isLoading } = useGetSplitListQuery();
 
     return (
         <div className="flex flex-col gap-4">
@@ -15,6 +16,7 @@ export const SplitsPage = () => {
                     <CardTitle className="text-3xl font-semibold">
                         Сплиты
                     </CardTitle>
+
                     <div className="flex gap-4">
                         <AddSplitButton />
                     </div>

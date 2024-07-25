@@ -1,5 +1,15 @@
-import { Navigate } from "@tanstack/react-router";
+import { PageLoader } from "@/components/atoms/page-loader";
+import { useNavigate } from "@tanstack/react-router";
 
 export const MainPage = () => {
-    return <Navigate to="/admin/front/splits" />;
+    const navigate = useNavigate();
+    return (
+        <PageLoader
+            onComplete={() => {
+                navigate({
+                    to: "/admin/front/splits",
+                });
+            }}
+        />
+    );
 };
