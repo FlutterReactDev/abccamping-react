@@ -25,13 +25,13 @@ export const AnimationPreloaderProvider: FC<
     const [isCompleted, setIsCompleted] = useState(
         animationShowed != undefined ? animationShowed : false
     );
-
-    if (isCompleted) {
-        return <>{children}</>;
-    }
     if (off) {
         return <>{children}</>;
     }
+    if (isCompleted) {
+        return <>{children}</>;
+    }
+
     return (
         <PageLoader
             onComplete={() => {

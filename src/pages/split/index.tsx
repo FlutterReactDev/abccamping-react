@@ -60,11 +60,11 @@ export const SplitPage = () => {
                             name,
                             redirect,
                             admin_total,
-                            admin_uniq,
+
                             id,
                             size,
                             user_total,
-                            user_uniq,
+
                             redirect_url,
                         } = group;
                         return (
@@ -76,7 +76,7 @@ export const SplitPage = () => {
                                     <Badge>Всего: {size}</Badge>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="flex gap-2 md:flex-nowrap flex-wrap">
+                                    <div className="flex gap-2 md:flex-nowrap flex-wrap items-start">
                                         <div className="flex flex-col">
                                             <img src={getImageUrl(qr_url)} />
                                             <a
@@ -93,29 +93,22 @@ export const SplitPage = () => {
                                             </a>
                                         </div>
                                         <div className="grid grid-cols-1 gap-2 w-full">
-                                            <div className="flex justify-between">
-                                                <p>admin_total</p>
-                                                <Badge variant={"secondary"}>
-                                                    {admin_total}
-                                                </Badge>
+                                            <div className="flex gap-2 ">
+                                                <p>
+                                                    Переходы уникальные (всего)
+                                                </p>
+                                                <div>
+                                                    <Badge>{user_total}</Badge>
+                                                </div>
                                             </div>
-                                            <div className="flex justify-between">
-                                                <p>admin_uniq</p>
-                                                <Badge variant={"secondary"}>
-                                                    {admin_uniq}
-                                                </Badge>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <p>user_total</p>
-                                                <Badge variant={"secondary"}>
-                                                    {user_total}
-                                                </Badge>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <p>user_uniq</p>
-                                                <Badge variant={"secondary"}>
-                                                    {user_uniq}
-                                                </Badge>
+                                            <div className="flex gap-2">
+                                                <p>
+                                                    Переходы админа уникальные
+                                                    (всего):
+                                                </p>
+                                                <div>
+                                                    <Badge>{admin_total}</Badge>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
