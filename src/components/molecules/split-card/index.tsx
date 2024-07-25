@@ -170,7 +170,7 @@ export const SplitCard: FC<SplitCardProps> = (props) => {
     return (
         <Card className="cursor-pointer">
             <Link
-                to={"/admin/front/$id"}
+                to={"/admin/front/splits/$id"}
                 params={{
                     id: `${id}`,
                 }}
