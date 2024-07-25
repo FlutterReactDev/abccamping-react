@@ -7,12 +7,12 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { FC, useRef } from "react";
 
 export const SplitsPage = () => {
-    const { data, isSuccess, isLoading } = useGetSplitListQuery();
+    const { data, isSuccess } = useGetSplitListQuery();
 
     return (
         <div className="flex flex-col gap-4">
             <Card>
-                <CardHeader className="flex-row items-center justify-between gap-2">
+                <CardHeader className="flex-row items-center justify-between gap-2 flex-wrap">
                     <CardTitle className="text-3xl font-semibold">
                         Сплиты
                     </CardTitle>

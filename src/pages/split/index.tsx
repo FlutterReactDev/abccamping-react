@@ -25,7 +25,7 @@ export const SplitPage = () => {
     if (isSuccess) {
         return (
             <div className="flex flex-col gap-4">
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-wrap gap-2">
                     <div className="flex gap-2 items-center">
                         <Link to="/admin/front/splits">
                             <Button size={"icon"} variant={"outline"}>
@@ -69,14 +69,14 @@ export const SplitPage = () => {
                         } = group;
                         return (
                             <Card key={id}>
-                                <CardHeader className="flex-row items-baseline gap-2">
+                                <CardHeader className="flex-row items-baseline gap-2 flex-wrap">
                                     <CardTitle className="text-xl">
                                         #{id} {name}
                                     </CardTitle>
                                     <Badge>Всего: {size}</Badge>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 md:flex-nowrap flex-wrap">
                                         <div className="flex flex-col">
                                             <img src={getImageUrl(qr_url)} />
                                             <a
@@ -133,7 +133,7 @@ export const SplitPage = () => {
                                     </a>
                                 </CardContent>
                                 <CardFooter>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 flex-wrap">
                                         <DeleteGroupButton groupId={id} />
                                         <EditGroupButton group={group} />
                                     </div>
