@@ -11,6 +11,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Form } from "@/components/ui/form";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { nestedForm } from "@/lib/nested-form";
@@ -20,6 +28,7 @@ import { FilePenLine } from "lucide-react";
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useMedia } from "react-use";
 import { toast } from "sonner";
 import { InferType, object } from "yup";
 const schema = object({
@@ -32,6 +41,7 @@ export const EditSplitButton: FC<EditSplitButtonProps> = (props) => {
     const {
         split: { id, name },
     } = props;
+    const isMobile = useMedia("(max-width: 768px)");
     const [editSplit, { isLoading }] = useEditSplitMutation();
     const { data } = useGetSplitListQuery();
     const [open, setOpen] = useState(false);
@@ -65,6 +75,47 @@ export const EditSplitButton: FC<EditSplitButtonProps> = (props) => {
             }
         }
     };
+
+    if (isMobile) {
+        return (
+            <Drawer open={open} onOpenChange={setOpen}>
+                <DrawerTrigger>
+                    <Button variant={"outline"}>
+                        <FilePenLine />
+                        Редактировать
+                    </Button>
+                </DrawerTrigger>
+
+                <DrawerContent className="h-[90%]">
+                    <DrawerHeader>
+                        <DrawerTitle>
+                            Редактировать{" "}
+                            {data?.filter((split) => split.id == id)[0].name}
+                        </DrawerTitle>
+                    </DrawerHeader>
+
+                    <div className="overflow-auto">
+                        <div className="px-4 ">
+                            <Form {...form}>
+                                <EditSplitForm
+                                    form={nestedForm(form, "split")}
+                                />
+                            </Form>
+                        </div>
+                    </div>
+                    <DrawerFooter>
+                        <LoadingButton
+                            onClick={handleSubmit(onCreate)}
+                            loading={isLoading}
+                            disabled={!isDirty}
+                        >
+                            Изменить
+                        </LoadingButton>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+        );
+    }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>

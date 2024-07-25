@@ -11,6 +11,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Form } from "@/components/ui/form";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { nestedForm } from "@/lib/nested-form";
@@ -20,6 +28,7 @@ import { FilePenLine } from "lucide-react";
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useMedia } from "react-use";
 import { toast } from "sonner";
 import { InferType, object } from "yup";
 const schema = object({
@@ -34,6 +43,7 @@ export const EditGroupButton: FC<EditGroupButtonProps> = (props) => {
     } = props;
     const [editGroup, { isLoading }] = useEditGroupMutation();
     const [open, setOpen] = useState(false);
+    const isMobile = useMedia("(max-width: 768px)");
     const form = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -66,6 +76,43 @@ export const EditGroupButton: FC<EditGroupButtonProps> = (props) => {
             }
         }
     };
+    if (isMobile) {
+        return (
+            <Drawer open={open} onOpenChange={setOpen}>
+                <DrawerTrigger>
+                    <Button variant={"outline"}>
+                        <FilePenLine />
+                        Редактировать
+                    </Button>
+                </DrawerTrigger>
+
+                <DrawerContent className="h-[90%]">
+                    <DrawerHeader>
+                        <DrawerTitle>Редактировать {name}</DrawerTitle>
+                    </DrawerHeader>
+
+                    <div className="overflow-auto">
+                        <div className="px-4 ">
+                            <Form {...form}>
+                                <EditGroupForm
+                                    form={nestedForm(form, "group")}
+                                />
+                            </Form>
+                        </div>
+                    </div>
+                    <DrawerFooter>
+                        <LoadingButton
+                            onClick={handleSubmit(onCreate)}
+                            loading={isLoading}
+                            disabled={!isDirty}
+                        >
+                            Изменить
+                        </LoadingButton>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+        );
+    }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>

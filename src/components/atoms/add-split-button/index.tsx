@@ -21,10 +21,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { InferType, object } from "yup";
+import { useMedia } from "react-use";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
 const schema = object({
     split: addSplitSchema,
 });
 export const AddSplitButton = () => {
+    const isMobile = useMedia("(max-width: 768px)");
     const [createSplit, { isLoading }] = useCreateSplitMutation();
     const [open, setOpen] = useState(false);
     const form = useForm({
@@ -47,6 +57,44 @@ export const AddSplitButton = () => {
             }
         }
     };
+
+    if (isMobile) {
+        return (
+            <Drawer open={open} onOpenChange={setOpen}>
+                <DrawerTrigger>
+                    <Button>
+                        <PlusCircle />
+                        Добавить сплит
+                    </Button>
+                </DrawerTrigger>
+
+                <DrawerContent className="h-[90%]">
+                    <DrawerHeader>
+                        <DrawerTitle>Добавить новый сплит</DrawerTitle>
+                    </DrawerHeader>
+
+                    <div className="overflow-auto">
+                        <div className="px-4 ">
+                            <Form {...form}>
+                                <AddSplitForm
+                                    form={nestedForm(form, "split")}
+                                />
+                            </Form>
+                        </div>
+                    </div>
+                    <DrawerFooter>
+                        <LoadingButton
+                            onClick={handleSubmit(onCreate)}
+                            type="submit"
+                            loading={isLoading}
+                        >
+                            Добавить
+                        </LoadingButton>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+        );
+    }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>

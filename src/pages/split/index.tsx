@@ -17,7 +17,7 @@ import { ChevronLeft } from "lucide-react";
 
 export const SplitPage = () => {
     const { id } = useParams({
-        from: "/_layout/admin/$id",
+        from: "/_layout/admin/front/$id",
     });
 
     const { data, isSuccess } = useGetSplitDetailQuery(parseInt(id));
@@ -27,7 +27,7 @@ export const SplitPage = () => {
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between">
                     <div className="flex gap-2 items-center">
-                        <Link to="/admin">
+                        <Link to="/admin/front">
                             <Button size={"icon"} variant={"outline"}>
                                 <ChevronLeft />
                             </Button>
