@@ -60,7 +60,8 @@ export const SplitPage = () => {
                             name,
                             redirect,
                             admin_total,
-
+                            admin_uniq,
+                            user_uniq,
                             id,
                             size,
                             user_total,
@@ -98,7 +99,10 @@ export const SplitPage = () => {
                                                     Переходы уникальные (всего)
                                                 </p>
                                                 <div>
-                                                    <Badge>{user_total}</Badge>
+                                                    <Badge>
+                                                        {user_uniq} (
+                                                        {user_total})
+                                                    </Badge>
                                                 </div>
                                             </div>
                                             <div className="flex gap-2">
@@ -107,7 +111,10 @@ export const SplitPage = () => {
                                                     (всего):
                                                 </p>
                                                 <div>
-                                                    <Badge>{admin_total}</Badge>
+                                                    <Badge>
+                                                        {admin_uniq} (
+                                                        {admin_total})
+                                                    </Badge>
                                                 </div>
                                             </div>
                                         </div>
