@@ -36,9 +36,9 @@ export const DeleteGroupButton: FC<DeleteGroupButtonProps> = ({ groupId }) => {
             variant={"destructive"}
             onClick={onDelete}
             loading={isLoading}
+            size={"icon"}
         >
             <Trash2 />
-            Удалить
         </LoadingButton>
     );
 };

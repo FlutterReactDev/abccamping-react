@@ -7,9 +7,8 @@ import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
-    CardFooter,
     CardHeader,
-    CardTitle,
+    CardTitle
 } from "@/components/ui/card";
 import { getImageUrl } from "@/lib/utils";
 import { Link, useParams } from "@tanstack/react-router";
@@ -69,7 +68,7 @@ export const SplitPage = () => {
                             redirect_url,
                         } = group;
                         return (
-                            <Card key={id}>
+                            <Card key={id} className="relative">
                                 <CardHeader className="flex-row items-baseline gap-2 flex-wrap">
                                     <CardTitle className="text-xl">
                                         #{id} {name}
@@ -117,27 +116,32 @@ export const SplitPage = () => {
                                                     </Badge>
                                                 </div>
                                             </div>
+                                            <div className="flex gap-2 items-center">
+                                                <p className="min-w-max">
+                                                    Редиректим пользователей на:
+                                                </p>
+                                                <div className="w-full">
+                                                    <a
+                                                        href={redirect}
+                                                        target="_blank"
+                                                        className="w-full"
+                                                    >
+                                                        <Button
+                                                            variant={"outline"}
+                                                            className="w-full"
+                                                        >
+                                                            {redirect}
+                                                        </Button>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <a
-                                        href={redirect}
-                                        target="_blank"
-                                        className="w-full"
-                                    >
-                                        <Button
-                                            variant={"outline"}
-                                            className="w-full mt-4"
-                                        >
-                                            {redirect}
-                                        </Button>
-                                    </a>
                                 </CardContent>
-                                <CardFooter>
-                                    <div className="flex gap-2 flex-wrap">
-                                        <DeleteGroupButton groupId={id} />
-                                        <EditGroupButton group={group} />
-                                    </div>
-                                </CardFooter>
+                                <div className="flex gap-2 flex-wrap absolute right-2 top-2">
+                                    <DeleteGroupButton groupId={id} />
+                                    <EditGroupButton group={group} />
+                                </div>
                             </Card>
                         );
                     })}

@@ -80,9 +80,8 @@ export const EditGroupButton: FC<EditGroupButtonProps> = (props) => {
         return (
             <Drawer open={open} onOpenChange={setOpen}>
                 <DrawerTrigger>
-                    <Button variant={"outline"}>
+                    <Button variant={"outline"} size={"icon"}>
                         <FilePenLine />
-                        Редактировать
                     </Button>
                 </DrawerTrigger>
 
@@ -116,9 +115,8 @@ export const EditGroupButton: FC<EditGroupButtonProps> = (props) => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
-                <Button variant={"outline"}>
+                <Button variant={"outline"} size={"icon"}>
                     <FilePenLine />
-                    Редактировать
                 </Button>
             </DialogTrigger>
             <DialogContent>
