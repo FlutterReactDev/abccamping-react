@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as LayoutDonateImport } from './routes/_layout/donate'
 import { Route as LayoutAdminFrontSplitsIndexImport } from './routes/_layout/admin/front/splits/index'
 import { Route as LayoutAdminFrontSplitsIdImport } from './routes/_layout/admin/front/splits/$id'
 
@@ -25,6 +26,11 @@ const LayoutRoute = LayoutImport.update({
 
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutDonateRoute = LayoutDonateImport.update({
+  path: '/donate',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -49,6 +55,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
+    }
+    '/_layout/donate': {
+      id: '/_layout/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof LayoutDonateImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/': {
       id: '/_layout/'
@@ -78,6 +91,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
+    LayoutDonateRoute,
     LayoutIndexRoute,
     LayoutAdminFrontSplitsIdRoute,
     LayoutAdminFrontSplitsIndexRoute,
@@ -98,10 +112,15 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/donate",
         "/_layout/",
         "/_layout/admin/front/splits/$id",
         "/_layout/admin/front/splits/"
       ]
+    },
+    "/_layout/donate": {
+      "filePath": "_layout/donate.tsx",
+      "parent": "/_layout"
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
